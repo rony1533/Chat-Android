@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ChatActivity"
+    android:background="#CC6E6D6D">
+
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:src="@drawable/imgback"
+            android:padding="5dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/imgBack"/>
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            tools:text="Test"
+            android:textAlignment="textEnd"
+            />
+
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="0.5"
+            android:padding="5dp"
+            android:src="@drawable/profile_image"/>
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/l1"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/r1"
+        android:layout_height="match_parent"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/chatRecyclerView"/>
+
+    <RelativeLayout
+        android:id="@+id/r1"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginBottom="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etMessage"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:background="@drawable/search_background"
+                android:paddingStart="10dp"
+                android:hint="Mensagem"
+                android:textColor="@color/grey"
+                android:textColorHint="@color/grey"/>
+
+            <ImageButton
+                android:id="@+id/btnSendMessage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_background"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/ic__send"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "125650777504",
+    "project_id": "rony-chat",
+    "storage_bucket": "rony-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125650777504:android:cb390992258bf6459be0c5",
+        "android_client_info": {
+          "package_name": "com.rony1533.ronyzap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125650777504-284pipo0afjou1k47ej22uh30o599fhv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh9g5fgoHiL5oSZocpTHPzqwjdC9DdPBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125650777504-284pipo0afjou1k47ej22uh30o599fhv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
