@@ -3,29 +3,27 @@ package com.rony1533.ronyzap.activity
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.opengl.Visibility
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.GlideException
+import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.google.firebase.iid.FirebaseInstanceIdReceiver
-import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.installations.FirebaseInstallations
-import com.google.firebase.messaging.FirebaseMessaging
 import com.rony1533.ronyzap.R
 import com.rony1533.ronyzap.adapter.UserAdapter
 import com.rony1533.ronyzap.databinding.ActivityUsersBinding
 import com.rony1533.ronyzap.firebase.FirebaseService
 import com.rony1533.ronyzap.model.News
 import com.rony1533.ronyzap.model.User
+import java.util.*
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.seconds
 
 class UsersActivity : AppCompatActivity() {
 
@@ -55,6 +53,16 @@ class UsersActivity : AppCompatActivity() {
         getNewsApp()
     }
 
+    override fun onResume() {
+        status("Online")
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        status("Offline")
+        super.onDestroy()
+    }
+
     private fun getNewsApp() {
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("News").child("update")
 
@@ -70,7 +78,7 @@ class UsersActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.e("UsersActivity: Line 81 fun getNewsApp() >>> ", error.toString())
             }
 
         })
@@ -114,5 +122,18 @@ class UsersActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+
+    private fun status(status: String) {
+
+        val firebaseUser = FirebaseAuth.getInstance().currentUser!!
+        FirebaseDatabase.getInstance().getReference("Users")
+            .child(firebaseUser!!.uid).child("status").setValue(status).addOnSuccessListener {
+                    Log.e("Online : ", status)
+            }
+            .addOnFailureListener( OnFailureListener {
+                    Log.e("Offline", status)
+            })
     }
 }

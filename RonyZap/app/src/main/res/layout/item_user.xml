@@ -8,17 +8,11 @@
     android:orientation="vertical">
 
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="1dp"
-        android:layout_marginBottom="2dp">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#c4c4c4"
+            android:background="@color/white"
             android:padding="10dp">
 
             <ImageView
@@ -31,17 +25,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:gravity="center"
                 android:layout_marginLeft="8dp">
 
-                <TextView
-                    android:id="@+id/tvUserName"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Rony God"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"
-                    />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/tvUserName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="Rony God"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        android:layout_weight="0.6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="textEnd"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        tools:text="Online"/>
+
+                </LinearLayout>
+
+
 
                 <TextView
                     android:id="@+id/temp"
@@ -54,12 +67,17 @@
                     android:textColor="@color/black"
                     tools:text="@tools:sample/lorem/random"/>
 
+
+
             </LinearLayout>
 
+
+
         </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c4c4c4"/>
 
 
 </LinearLayout>
