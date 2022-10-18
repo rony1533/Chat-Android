@@ -1,13 +1,16 @@
 package com.rony1533.ronyzap.activity
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -22,6 +25,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class ChatActivity : AppCompatActivity() {
     var firebaseUser:FirebaseUser? = null
@@ -32,7 +38,6 @@ class ChatActivity : AppCompatActivity() {
     var name = ""
 
     private lateinit var binding: ActivityChatBinding
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
@@ -52,6 +57,7 @@ class ChatActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val user = snapshot.getValue(User::class.java)
                 name = user!!.userName
+
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(applicationContext, error.message, Toast.LENGTH_SHORT).show()
@@ -66,6 +72,15 @@ class ChatActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val user = snapshot.getValue(User::class.java)
                 binding.tvUserName.text = user!!.userName
+                binding.tvStatus.text = user.status
+
+                if (user.status == "Online"){
+                    binding.tvStatus.setTextColor(Color.parseColor("#00a000"))
+                }
+                if (user.status == "Offline"){
+                    binding.tvStatus.setTextColor(Color.parseColor("#ff4040"))
+                }
+
                 if (user.profileImage == "") {
                     binding.imgProfile.setImageResource(R.drawable.profile_image)
                 } else {
@@ -82,16 +97,15 @@ class ChatActivity : AppCompatActivity() {
 
         binding.btnSendMessage.setOnClickListener {
             var message: String = binding.etMessage.text.toString()
-            val current = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("HH:mm")
-            val formatted = current.format(formatter)
-            var dateTime: String = formatted.toString()
+            val currentTime = Calendar.getInstance().time.hours
+            val currentTimae = Calendar.getInstance().time.seconds
+            val dateTimeNow = "$currentTime:$currentTimae"
 
             if (message.isEmpty()){
                 Toast.makeText(applicationContext, "message is empty", Toast.LENGTH_SHORT).show()
                 binding.etMessage.setText("")
             } else {
-                sendMessage(firebaseUser!!.uid, userId, name!!, message, dateTime)
+                sendMessage(firebaseUser!!.uid, userId, name!!, message, dateTimeNow)
                 binding.etMessage.setText("")
 //                topic = "/topics/$userId"
 //                PushNotification(NotificationData(userName!!, message), topic)
